@@ -1,0 +1,31 @@
+input.ng-touched.ng-invalid {border:solid red 2px;}
+input.ng-touched.ng-valid {border:solid green 2px;}
+
+.triangle {
+     width: 0;
+     height: 0;     
+     position: relative; 
+     left:35px;
+     border-left: 10px solid transparent;
+     border-right: 10px solid transparent;
+     border-bottom: 10px solid grey;
+     z-index: 3;
+}
+.triangle::after {
+    content: ''; 
+    position: absolute;    
+    left:-10px;
+    top: 1px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+.menu2 {
+    position: absolute;
+    border: solid grey 1px;
+    border-radius: 10px;
+    width:150px;
+    background:white; 
+    text-align: center;
+    padding: 2px;
+}

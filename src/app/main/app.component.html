@@ -1,0 +1,66 @@
+<body >
+   <div class="leftMenu">
+        <h3>Поиск</h3>
+        <p><input class="textInput_Search" [(ngModel)]="toFind" (change)="findItem(toFind)"
+                placeholder="Введите и нажмите Enter"> </p>
+        <h3> Фильтр </h3>
+        <div class="filters">
+            <p>Средний балл</p>
+            <p><input id="bal" class="textInput_filter" [(ngModel)]="markMin" placeholder="от ">
+                <input class="textInput_filter" [(ngModel)]="markMax" placeholder="до "></p>
+        </div>
+        <div class="filters">
+            <p>Дата рождения </p>
+            <p>от <input id="date" class="textInput_filter" type="Date" [(ngModel)]="dateMin"></p>
+            <p>до <input id="date" class="textInput_filter" type="Date" [(ngModel)]="dateMax"></p>
+            <p><button class="buttons" (click)="filter(markMin, markMax, dateMin, dateMax)">Применить</button></p>
+            <p><label><input type="checkbox" [(ngModel)]="markRed" text="Отчество" /> Выделять средний бал меньше 3
+                </label></p>
+        </div>
+    </div>
+    <button  id="newStudentButton" class="buttons" routerLink="/add" (click)="add()"> Новый
+        студент </button>
+       <router-outlet></router-outlet>    
+    <table class="students">
+        <thead>
+            <tr>
+                <th></th>
+                <th><button onHover = "blue" sort = "secondName" (click)="sortBySecondName()" id="buttons_sort" class="buttons">Фамилия</button></th>
+                <th><button onHover = "blue"  sort = "firstName" (click)="sortByFirstName()" id="buttons_sort" class="buttons">Имя</button></th>
+                <th><button onHover = "blue" (click)="sortByLastName()" id="buttons_sort" class="buttons">Отчество</button></th>
+                <th><button onHover = "blue" (click)="sortByBirthday()" id="buttons_sort" class="buttons">Дата рождения</button></th>
+                <th><button onHover = "blue" (click)="sortByBirthday()" id="buttons_sort" class="buttons">Возраст</button></th>
+                <th><button onHover = "blue" (click)="sortByMark()" id="buttons_sort" class="buttons">Средний балл</button></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i = index; let item of items;" [ngClass]="{yellow:(item.light)}">
+                <ng-container *ngIf="item.visible">
+                    <td class="numb">{{i+1}}</td>
+                    <td>{{item.secondName}}</td>
+                    <td>{{item.firstName}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{yyyymmdd(item.date)}}</td>
+                   <td>{{item.date | age}}</td>
+                    <td [ngClass]="{red:(item.mark < 3 && markRed)}">{{item.mark}}</td>
+                    <td><button onHover = "green" id="buttons_change" class="buttons" 
+                      (click)="edit(i, item.mark)">Изменить</button>
+                    <td><button onHover = "red" id="buttons_delete" class="buttons"
+                            (click)="item.modalVisible = !item.modalVisible">Удалить</button>
+                        <div [ngClass]="{invisible: !item.modalVisible}" class=menu2D>
+                            <div class='triangle'></div>
+                            <div class="menu2">
+                                <div> Вы уверены?</div>
+                                <button id="buttons_popup" class="buttons" (click)="deleteItem(i)">Да</button>
+                                <button id="buttons_popup" class="buttons"
+                                    (click)="item.modalVisible = !item.modalVisible">Нет</button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table> 
+</body>

@@ -1,0 +1,65 @@
+<body>
+<h3>{{ head }}</h3>
+
+<form [formGroup]="myForm" class = "form">
+    <div formGroupName="FIOForm">
+        <div class="inputWithError">
+            <input class="textInput" formControlName="firstNameForm" placeholder="Имя" />
+            <div
+                *ngIf="myForm.get('FIOForm').controls['firstNameForm'].invalid && myForm.get('FIOForm').controls['firstNameForm'].touched">
+                <popup-comp [error]="'Введите имя'"></popup-comp>
+            </div>
+        </div>
+        <div class="inputWithError">
+            <input class="textInput" formControlName="secondNameForm" placeholder="Фамилия" />
+            <div
+                *ngIf="myForm.get('FIOForm').controls['secondNameForm'].errors && myForm.get('FIOForm').controls['secondNameForm'].errors.required && myForm.get('FIOForm').controls['secondNameForm'].touched">
+                <popup-comp [error]="'Введите фамилию'"></popup-comp>
+            </div>
+            <div
+                *ngIf="myForm.get('FIOForm').controls['secondNameForm'].errors && myForm.get('FIOForm').controls['secondNameForm'].errors.match && myForm.get('FIOForm').controls['secondNameForm'].touched">
+                <popup-comp [error]="myForm.get('FIOForm').controls['secondNameForm'].errors.match"></popup-comp>
+            </div>
+        </div>
+        <div class="inputWithError">
+            <input class="textInput" formControlName="lastNameForm" placeholder="Отчество" />
+            <div
+                *ngIf="myForm.get('FIOForm').controls['lastNameForm'].errors && myForm.get('FIOForm').controls['lastNameForm'].errors.required && myForm.get('FIOForm').controls['lastNameForm'].touched">
+                <popup-comp [error]="'Введите отчество'"></popup-comp>
+            </div>
+            <div
+                *ngIf="myForm.get('FIOForm').controls['lastNameForm'].errors && myForm.get('FIOForm').controls['lastNameForm'].errors.match && myForm.get('FIOForm').controls['lastNameForm'].touched">
+                <popup-comp [error]="myForm.get('FIOForm').controls['lastNameForm'].errors.match"></popup-comp>
+            </div>
+        </div>
+    </div>
+    <div class="inputWithError">
+        <input type="date" class="textInput" formControlName="birthday"/>
+        <div *ngIf="myForm.controls['birthday'].errors && myForm.controls['birthday'].errors.required && myForm.controls['birthday'].touched">
+            <popup-comp [error]="'Заполните дату рождения'"></popup-comp>
+        </div>
+         <div *ngIf="myForm.controls['birthday'].errors && myForm.controls['birthday'].errors.birthdayValidator && myForm.controls['birthday'].touched">
+            <popup-comp [error]="'Студент должен быть старше 10 лет'"></popup-comp>
+        </div>
+    </div>
+    <div class="inputWithError">
+        <input type="number" max="5" class="textInput" formControlName="markForm" placeholder="Средний бал" />
+        <div class="error" *ngIf="myForm.controls['markForm'].errors && myForm.controls['markForm'].touched">
+            <popup-comp [error]="'Средний бал не заполнен'"></popup-comp>
+        </div>
+    </div>
+    <div class="inputWithError">
+        <button class="buttons" id="buttonAdd" [disabled]="myForm.invalid" onHover = "green"
+            [routerLink] = "['']"
+            (click)="change(myForm.value.FIOForm.firstNameForm, myForm.value.FIOForm.secondNameForm, myForm.value.FIOForm.lastNameForm, myForm.value.birthday, myForm.value.markForm)">
+            {{buttonValue}}
+        </button>
+        <div *ngIf="!myForm.valid" class="formUnvalidError">
+            <popup-comp [error]="'Не все поля формы заполнены'"></popup-comp>
+        </div>
+    </div>
+</form>
+<div class = "close">
+<button class="buttons" (click) = "closeForm()" >Назад</button>
+</div>
+</body>

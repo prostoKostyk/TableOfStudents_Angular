@@ -1,0 +1,8 @@
+{ 
+    "userList":
+    [
+        { "firstName": "Иван", "secondName": "Иванов", "lastName": "Александрович", "date": "2000-01-22", "mark": 4, "visible": true, "modalVisible": false, "light": false },
+        { "firstName": "Петр", "secondName": "Аввакумов", "lastName": "Васильевич", "date": "1995-12-17", "mark": 2, "visible": true, "modalVisible": false, "light": false },
+        { "firstName": "Егор", "secondName": "Летов", "lastName": "Фёдорович", "date": "1964-09-10", "mark": 5, "visible": true, "modalVisible": false, "light": false }
+      ]
+}
